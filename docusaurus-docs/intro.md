@@ -9,11 +9,16 @@ This is loaded remotely!
 Here you will find guides & API references to help you create & issue BNC branded cards through our domain APIs.
 
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+sequenceDiagram
+    autonumber
+    Alice->>John: Hello John, how are you?
+    loop Healthcheck
+        John->>John: Think about how my day has been
+    end
+    Note right of John: Being positive
+    John-->>Alice: Great!
+    John->>Bob: How about you?
+    Bob-->>John: Jolly good!
 ```
 
 ## Download & try out our API
