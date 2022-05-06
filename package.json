@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "openapi-to-postmanv2": "^3.2.0",
+    "prism-cli": "^0.5.3",
     "rdme": "^7.2.0"
   }
 }
