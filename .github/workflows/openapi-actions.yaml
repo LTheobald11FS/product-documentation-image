@@ -9,3 +9,6 @@ jobs:
       - uses: readmeio/rdme@7.2.0
         with:
           rdme: openapi contract.yaml --key=flbEyOhwae2czobCJdFoX49ySg5ukHBF --id=62742ffe50fcec008ccdfdb6
+      - uses: readmeio/rdme@7.2.0
+        with:
+          rdme: docs ./readme-docs --key=flbEyOhwae2czobCJdFoX49ySg5ukHBF --version=1.0
