@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 slug: /
+id: intro
 ---
 
 <div class="hero shadow--lw">
@@ -14,6 +15,8 @@ slug: /
     </div>
   </div>
 </div>
+
+# _
 
 Here you will find guides & API references to help you create & issue BNC branded cards through our domain APIs.
 
