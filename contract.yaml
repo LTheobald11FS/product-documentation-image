@@ -2,770 +2,648 @@ openapi: 3.0.2
 servers:
   - url: http://127.0.0.1:4010/
 info:
-  description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
-    Swagger at [http://swagger.io](http://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
-    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
-    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
-
-    Some useful links:
-    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
-  version: 1.0.11
-  title: Swagger Petstore - OpenAPI 3.0
-  termsOfService: 'http://swagger.io/terms/'
+  description: An example card management API for BNC    
+  version: 1.0.0
+  title: BNC Card Management API
   contact:
-    email: apiteam@swagger.io
+    email: lee.theobald@11fs.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-tags:
-  - name: pet
-    description: Everything about your Pets
-    externalDocs:
-      description: Find out more
-      url: 'http://swagger.io'
-  - name: store
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: 'http://swagger.io'
-  - name: user
-    description: Operations about user
 paths:
-  /pet:
+  /cards:
     post:
-      tags:
-        - pet
-      summary: Add a new pet to the store
-      description: Add a new pet to the store
-      operationId: addPet
+      summary: Creates a new card for a customer
+      description: Creates a new card for a customer
+      operationId: createCard
       responses:
         '200':
-          description: Successful operation
+          description: Card created successfully
           content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
             application/json:
               schema:
-                $ref: '#/components/schemas/Pet'
+                $ref: '#/components/schemas/card'
         '405':
-          description: Invalid input
+          description: Could not validate input
       requestBody:
-        description: Create a new pet in the store
+        description: Create a new card for a customer
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-    put:
-      tags:
-        - pet
-      summary: Update an existing pet
-      description: Update an existing pet by Id
-      operationId: updatePet
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-        '405':
-          description: Validation exception
-      requestBody:
-        description: Update an existent pet in the store
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Pet'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Pet'
-  /pet/findByStatus:
-    get:
-      tags:
-        - pet
-      summary: Finds Pets by status
-      description: Multiple status values can be provided with comma separated strings
-      operationId: findPetsByStatus
-      parameters:
-        - name: status
-          in: query
-          description: Status values that need to be considered for filter
-          required: false
-          explode: true
-          schema:
-            type: string
-            enum:
-              - available
-              - pending
-              - sold
-            default: available
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid status value
-  /pet/findByTags:
-    get:
-      tags:
-        - pet
-      summary: Finds Pets by tags
-      description: >-
-        Multiple tags can be provided with comma separated strings. Use tag1,
-        tag2, tag3 for testing.
-      operationId: findPetsByTags
-      parameters:
-        - name: tags
-          in: query
-          description: Tags to filter by
-          required: false
-          explode: true
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid tag value
-  '/pet/{petId}':
-    get:
-      tags:
-        - pet
-      summary: Find pet by ID
-      description: Returns a single pet
-      operationId: getPetById
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet to return
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Pet'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Pet'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-    post:
-      tags:
-        - pet
-      summary: Updates a pet in the store with form data
-      description: ''
-      operationId: updatePetWithForm
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet that needs to be updated
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: name
-          in: query
-          description: Name of pet that needs to be updated
-          schema:
-            type: string
-        - name: status
-          in: query
-          description: Status of pet that needs to be updated
-          schema:
-            type: string
-      responses:
-        '405':
-          description: Invalid input
-    delete:
-      tags:
-        - pet
-      summary: Deletes a pet
-      description: ''
-      operationId: deletePet
-      parameters:
-        - name: api_key
-          in: header
-          description: ''
-          required: false
-          schema:
-            type: string
-        - name: petId
-          in: path
-          description: Pet id to delete
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '400':
-          description: Invalid pet value
-  '/pet/{petId}/uploadImage':
-    post:
-      tags:
-        - pet
-      summary: uploads an image
-      description: ''
-      operationId: uploadFile
-      parameters:
-        - name: petId
-          in: path
-          description: ID of pet to update
-          required: true
-          schema:
-            type: integer
-            format: int64
-        - name: additionalMetadata
-          in: query
-          description: Additional Metadata
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-      requestBody:
-        content:
-          application/octet-stream:
-            schema:
-              type: string
-              format: binary
-  /store/inventory:
-    get:
-      tags:
-        - store
-      summary: Returns pet inventories by status
-      description: Returns a map of status codes to quantities
-      operationId: getInventory
-      x-swagger-router-controller: OrderController
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                additionalProperties:
-                  type: integer
-                  format: int32
-  /store/order:
-    post:
-      tags:
-        - store
-      summary: Place an order for a pet
-      description: Place a new order in the store
-      operationId: placeOrder
-      x-swagger-router-controller: OrderController
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '405':
-          description: Invalid input
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Order'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Order'
-  '/store/order/{orderId}':
-    get:
-      tags:
-        - store
-      summary: Find purchase order by ID
-      x-swagger-router-controller: OrderController
-      description: >-
-        For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generate exceptions.
-      operationId: getOrderById
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of order that needs to be fetched
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Order'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Order not found
-    delete:
-      tags:
-        - store
-      summary: Delete purchase order by ID
-      x-swagger-router-controller: OrderController
-      description: >-
-        For valid response try integer IDs with value < 1000. Anything above
-        1000 or nonintegers will generate API errors
-      operationId: deleteOrder
-      parameters:
-        - name: orderId
-          in: path
-          description: ID of the order that needs to be deleted
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Order not found
-  /user:
-    post:
-      tags:
-        - user
-      summary: Create user
-      description: This can only be done by the logged in user.
-      operationId: createUser
-      responses:
-        default:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-        description: Created user object
-  /user/createWithList:
-    post:
-      tags:
-        - user
-      summary: Creates list of users with given input array
-      description: 'Creates list of users with given input array'
-      x-swagger-router-controller: UserController
-      operationId: createUsersWithListInput
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        default:
-          description: successful operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
-  /user/login:
-    get:
-      tags:
-        - user
-      summary: Logs user into the system
-      description: ''
-      operationId: loginUser
-      parameters:
-        - name: username
-          in: query
-          description: The user name for login
-          required: false
-          schema:
-            type: string
-        - name: password
-          in: query
-          description: The password for login in clear text
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          headers:
-            X-Rate-Limit:
-              description: calls per hour allowed by the user
-              schema:
-                type: integer
-                format: int32
-            X-Expires-After:
-              description: date in UTC when token expires
-              schema:
-                type: string
-                format: date-time
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-        '400':
-          description: Invalid username/password supplied
-  /user/logout:
-    get:
-      tags:
-        - user
-      summary: Logs out current logged in user session
-      description: ''
-      operationId: logoutUser
-      parameters: []
-      responses:
-        default:
-          description: successful operation
-  '/user/{username}':
-    get:
-      tags:
-        - user
-      summary: Get user by user name
-      description: ''
-      operationId: getUserByName
-      parameters:
-        - name: username
-          in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/User'
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
-    put:
-      tags:
-        - user
-      summary: Update user
-      x-swagger-router-controller: UserController
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      parameters:
-        - name: username
-          in: path
-          description: name that need to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        default:
-          description: successful operation
-      requestBody:
-        description: Update an existent user in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/User'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/User'
-    delete:
-      tags:
-        - user
-      summary: Delete user
-      description: This can only be done by the logged in user.
-      operationId: deleteUser
-      parameters:
-        - name: username
-          in: path
-          description: The name that needs to be deleted
-          required: true
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
-externalDocs:
-  description: Find out more about Swagger
-  url: 'http://swagger.io'
+              $ref: '#/components/schemas/card'
 components:
   schemas:
-    Order:
-      x-swagger-router-model: io.swagger.petstore.model.Order
+    merchant_categories:
+      type: array
+      description: Array of strings containing merchant category codes
+      items:
+        type: string
+        enum:
+        - ac_refrigeration_repair
+        - accounting_bookkeeping_services
+        - advertising_services
+        - agricultural_cooperative
+        - airlines_air_carriers
+        - airports_flying_fields
+        - ambulance_services
+        - amusement_parks_carnivals
+        - antique_reproductions
+        - antique_shops
+        - aquariums
+        - architectural_surveying_services
+        - art_dealers_and_galleries
+        - artists_supply_and_craft_shops
+        - auto_and_home_supply_stores
+        - auto_body_repair_shops
+        - auto_paint_shops
+        - auto_service_shops
+        - automated_cash_disburse
+        - automated_fuel_dispensers
+        - automobile_associations
+        - automotive_parts_and_accessories_stores
+        - automotive_tire_stores
+        - bail_and_bond_payments
+        - bakeries
+        - bands_orchestras
+        - barber_and_beauty_shops
+        - betting_casino_gambling
+        - bicycle_shops
+        - billiard_pool_establishments
+        - boat_dealers
+        - boat_rentals_and_leases
+        - book_stores
+        - books_periodicals_and_newspapers
+        - bowling_alleys
+        - bus_lines
+        - business_secretarial_schools
+        - buying_shopping_services
+        - cable_satellite_and_other_pay_television_and_radio
+        - camera_and_photographic_supply_stores
+        - candy_nut_and_confectionery_stores
+        - car_and_truck_dealers_new_used
+        - car_and_truck_dealers_used_only
+        - car_rental_agencies
+        - car_washes
+        - carpentry_services
+        - carpet_upholstery_cleaning
+        - caterers
+        - charitable_and_social_service_organizations_fundraising
+        - chemicals_and_allied_products
+        - child_care_services
+        - childrens_and_infants_wear_stores
+        - chiropodists_podiatrists
+        - chiropractors
+        - cigar_stores_and_stands
+        - civic_social_fraternal_associations
+        - cleaning_and_maintenance
+        - clothing_rental
+        - colleges_universities
+        - commercial_equipment
+        - commercial_footwear
+        - commercial_photography_art_and_graphics
+        - commuter_transport_and_ferries
+        - computer_network_services
+        - computer_programming
+        - computer_repair
+        - computer_software_stores
+        - computers_peripherals_and_software
+        - concrete_work_services
+        - construction_materials
+        - consulting_public_relations
+        - correspondence_schools
+        - cosmetic_stores
+        - counseling_services
+        - country_clubs
+        - courier_services
+        - court_costs
+        - credit_reporting_agencies
+        - cruise_lines
+        - dairy_products_stores
+        - dance_hall_studios_schools
+        - dating_escort_services
+        - dentists_orthodontists
+        - department_stores
+        - detective_agencies
+        - digital_goods_applications
+        - digital_goods_games
+        - digital_goods_large_volume
+        - digital_goods_media
+        - direct_marketing_catalog_merchant
+        - direct_marketing_combination_catalog_and_retail_merchant
+        - direct_marketing_inbound_telemarketing
+        - direct_marketing_insurance_services
+        - direct_marketing_other
+        - direct_marketing_outbound_telemarketing
+        - direct_marketing_subscription
+        - direct_marketing_travel
+        - discount_stores
+        - doctors
+        - door_to_door_sales
+        - drapery_window_covering_and_upholstery_stores
+        - drinking_places
+        - drug_stores_and_pharmacies
+        - drugs_drug_proprietaries_and_druggist_sundries
+        - dry_cleaners
+        - durable_goods
+        - duty_free_stores
+        - eating_places_restaurants
+        - educational_services
+        - electric_razor_stores
+        - electrical_parts_and_equipment
+        - electrical_services
+        - electronics_repair_shops
+        - electronics_stores
+        - elementary_secondary_schools
+        - employment_temp_agencies
+        - equipment_rental
+        - exterminating_services
+        - family_clothing_stores
+        - fast_food_restaurants
+        - financial_institutions
+        - fines_government_administrative_entities
+        - fireplace_fireplace_screens_and_accessories_stores
+        - floor_covering_stores
+        - florists
+        - florists_supplies_nursery_stock_and_flowers
+        - freezer_and_locker_meat_provisioners
+        - fuel_dealers_non_automotive
+        - funeral_services_crematories
+        - furniture_home_furnishings_and_equipment_stores_except_appliances
+        - furniture_repair_refinishing
+        - furriers_and_fur_shops
+        - general_services
+        - gift_card_novelty_and_souvenir_shops
+        - glass_paint_and_wallpaper_stores
+        - glassware_crystal_stores
+        - golf_courses_public
+        - government_services
+        - grocery_stores_supermarkets
+        - hardware_equipment_and_supplies
+        - hardware_stores
+        - health_and_beauty_spas
+        - hearing_aids_sales_and_supplies
+        - heating_plumbing_a_c
+        - hobby_toy_and_game_shops
+        - home_supply_warehouse_stores
+        - hospitals
+        - hotels_motels_and_resorts
+        - household_appliance_stores
+        - industrial_supplies
+        - information_retrieval_services
+        - insurance_default
+        - insurance_underwriting_premiums
+        - intra_company_purchases
+        - jewelry_stores_watches_clocks_and_silverware_stores
+        - landscaping_services
+        - laundries
+        - laundry_cleaning_services
+        - legal_services_attorneys
+        - luggage_and_leather_goods_stores
+        - lumber_building_materials_stores
+        - manual_cash_disburse
+        - marinas_service_and_supplies
+        - masonry_stonework_and_plaster
+        - massage_parlors
+        - medical_and_dental_labs
+        - medical_dental_ophthalmic_and_hospital_equipment_and_supplies
+        - medical_services
+        - membership_organizations
+        - mens_and_boys_clothing_and_accessories_stores
+        - mens_womens_clothing_stores
+        - metal_service_centers
+        - miscellaneous
+        - miscellaneous_apparel_and_accessory_shops
+        - miscellaneous_auto_dealers
+        - miscellaneous_business_services
+        - miscellaneous_food_stores
+        - miscellaneous_general_merchandise
+        - miscellaneous_general_services
+        - miscellaneous_home_furnishing_specialty_stores
+        - miscellaneous_publishing_and_printing
+        - miscellaneous_recreation_services
+        - miscellaneous_repair_shops
+        - miscellaneous_specialty_retail
+        - mobile_home_dealers
+        - motion_picture_theaters
+        - motor_freight_carriers_and_trucking
+        - motor_homes_dealers
+        - motor_vehicle_supplies_and_new_parts
+        - motorcycle_shops_and_dealers
+        - motorcycle_shops_dealers
+        - music_stores_musical_instruments_pianos_and_sheet_music
+        - news_dealers_and_newsstands
+        - non_fi_money_orders
+        - non_fi_stored_value_card_purchase_load
+        - nondurable_goods
+        - nurseries_lawn_and_garden_supply_stores
+        - nursing_personal_care
+        - office_and_commercial_furniture
+        - opticians_eyeglasses
+        - optometrists_ophthalmologist
+        - orthopedic_goods_prosthetic_devices
+        - osteopaths
+        - package_stores_beer_wine_and_liquor
+        - paints_varnishes_and_supplies
+        - parking_lots_garages
+        - passenger_railways
+        - pawn_shops
+        - pet_shops_pet_food_and_supplies
+        - petroleum_and_petroleum_products
+        - photo_developing
+        - photographic_photocopy_microfilm_equipment_and_supplies
+        - photographic_studios
+        - picture_video_production
+        - piece_goods_notions_and_other_dry_goods
+        - plumbing_heating_equipment_and_supplies
+        - political_organizations
+        - postal_services_government_only
+        - precious_stones_and_metals_watches_and_jewelry
+        - professional_services
+        - public_warehousing_and_storage
+        - quick_copy_repro_and_blueprint
+        - railroads
+        - real_estate_agents_and_managers_rentals
+        - record_stores
+        - recreational_vehicle_rentals
+        - religious_goods_stores
+        - religious_organizations
+        - roofing_siding_sheet_metal
+        - secretarial_support_services
+        - security_brokers_dealers
+        - service_stations
+        - sewing_needlework_fabric_and_piece_goods_stores
+        - shoe_repair_hat_cleaning
+        - shoe_stores
+        - small_appliance_repair
+        - snowmobile_dealers
+        - special_trade_services
+        - specialty_cleaning
+        - sporting_goods_stores
+        - sporting_recreation_camps
+        - sports_and_riding_apparel_stores
+        - sports_clubs_fields
+        - stamp_and_coin_stores
+        - stationary_office_supplies_printing_and_writing_paper
+        - stationery_stores_office_and_school_supply_stores
+        - swimming_pools_sales
+        - t_ui_travel_germany
+        - tailors_alterations
+        - tax_payments_government_agencies
+        - tax_preparation_services
+        - taxicabs_limousines
+        - telecommunication_equipment_and_telephone_sales
+        - telecommunication_services
+        - telegraph_services
+        - tent_and_awning_shops
+        - testing_laboratories
+        - theatrical_ticket_agencies
+        - timeshares
+        - tire_retreading_and_repair
+        - tolls_bridge_fees
+        - tourist_attractions_and_exhibits
+        - towing_services
+        - trailer_parks_campgrounds
+        - transportation_services
+        - travel_agencies_tour_operators
+        - truck_stop_iteration
+        - truck_utility_trailer_rentals
+        - typesetting_plate_making_and_related_services
+        - typewriter_stores
+        - u_s_federal_government_agencies_or_departments
+        - uniforms_commercial_clothing
+        - used_merchandise_and_secondhand_stores
+        - utilities
+        - variety_stores
+        - veterinary_services
+        - video_amusement_game_supplies
+        - video_game_arcades
+        - video_tape_rental_stores
+        - vocational_trade_schools
+        - watch_jewelry_repair
+        - welding_repair
+        - wholesale_clubs
+        - wig_and_toupee_stores
+        - wires_money_orders
+        - womens_accessory_and_specialty_shops
+        - womens_ready_to_wear_stores
+        - wrecking_and_salvage_yards
+
+    card:
+      description: You can create physical or virtual cards that are issued to cardholders.
       properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        petId:
-          type: integer
-          format: int64
-          example: 198772
-        quantity:
-          type: integer
-          format: int32
-          example: 7
-        shipDate:
+        brand:
+          description: The brand of the card.
+          maxLength: 5000
           type: string
-          format: date-time
-        status:
-          type: string
-          description: Order Status
+        cancellation_reason:
+          description: The reason why the card was canceled.
           enum:
-            - placed
-            - approved
-            - delivered
-          example: approved
-        complete:
-          type: boolean
-      xml:
-        name: order
-      type: object
-    Customer:
-      properties:
+          - lost
+          - stolen
+          nullable: true
+          type: string
+        cardholder:
+          "$ref": "#/components/schemas/cardholder"
+        created:
+          description: Time at which the object was created. Measured in seconds since the Unix epoch.
+          format: unix-time
+          type: integer
+        currency:
+          description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          type: string
+          pattern: "[a-z][a-z][a-z]"
+        cvc:
+          description: The card's CVC. For security reasons, this is only populated when retrieving details of virtual cards
+          maxLength: 3
+          type: string
+        exp_month:
+          description: The expiration month of the card.
+          type: integer
+          minimum: 1
+          maximum: 12
+        exp_year:
+          description: The expiration year of the card.
+          type: integer
+          minimum: 2022
+          maximum: 3022
         id:
-          type: integer
-          format: int64
-          example: 100000
-        username:
+          description: Unique identifier for the object.
+          maxLength: 5000
           type: string
-          example: fehguy
-        address:
-          type: array
-          items:
-            $ref: '#/components/schemas/Address'
-          xml:
-            wrapped: true
-            name: addresses
-      xml:
-        name: customer
-      type: object
-    Address:
-      properties:
-        street:
+        last4:
+          description: The last 4 digits of the card number.
+          maxLength: 4
           type: string
-          example: 437 Lytton
-        city:
+        number:
+          description: The full unredacted card number. For security reasons, this is only retrieved when fetching virtual card details
+          maxLength: 50
           type: string
-          example: Palo Alto
-        state:
-          type: string
-          example: CA
-        zip:
-          type: string
-          example: 94301
-      xml:
-        name: address
-      type: object
-    Category:
-      x-swagger-router-model: io.swagger.petstore.model.Category
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Dogs
-      xml:
-        name: category
-      type: object
-    User:
-      x-swagger-router-model: io.swagger.petstore.model.User
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        username:
-          type: string
-          example: theUser
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: James
-        email:
-          type: string
-          example: john@email.com
-        password:
-          type: string
-          example: 12345
-        phone:
-          type: string
-          example: 12345
-        userStatus:
-          type: integer
-          format: int32
-          example: 1
-          description: User Status
-      xml:
-        name: user
-      type: object
-    Tag:
-      x-swagger-router-model: io.swagger.petstore.model.Tag
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-      xml:
-        name: tag
-      type: object
-    Pet:
-      x-swagger-router-model: io.swagger.petstore.model.Pet
-      required:
-        - name
-        - photoUrls
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        name:
-          type: string
-          example: doggie
-        category:
-          $ref: '#/components/schemas/Category'
-        photoUrls:
-          type: array
-          xml:
-            wrapped: true
-          items:
+        replaced_by:
+          type: object
+          anyOf:
+          - maxLength: 5000
             type: string
-            xml:
-              name: photoUrl
-        tags:
-          type: array
-          xml:
-            wrapped: true
-          items:
-            $ref: '#/components/schemas/Tag'
-            xml:
-              name: tag
-        status:
-          type: string
-          description: pet status in the store
+          - "$ref": "#/components/schemas/card"
+          description: The latest card that replaces this card, if any.
+          nullable: true
+        replacement_for:
+          anyOf:
+          - maxLength: 5000
+            type: string
+          - "$ref": "#/components/schemas/card"
+          description: The card this card replaces, if any.
+          nullable: true
+          x-expansionResources:
+            oneOf:
+            - "$ref": "#/components/schemas/card"
+        replacement_reason:
+          description: The reason why the previous card needed to be replaced.
           enum:
-            - available
-            - pending
-            - sold
-      xml:
-        name: pet
-      type: object
-    ApiResponse:
-      properties:
-        code:
-          type: integer
-          format: int32
+          - damaged
+          - expired
+          - lost
+          - stolen
+          nullable: true
+          type: string
+        shipping:
+          anyOf:
+          - "$ref": "#/components/schemas/address"
+          description: Where and how the card will be shipped.
+          nullable: true
+        spending_controls:
+          "$ref": "#/components/schemas/auth_controls"
+        status:
+          description: Whether authorizations can be approved on this card.
+          enum:
+          - active
+          - canceled
+          - inactive
+          type: string
         type:
+          description: The type of the card.
+          enum:
+          - physical
+          - virtual
           type: string
-        message:
-          type: string
-      xml:
-        name: '##default'
+      required:
+      - brand
+      - cardholder
+      - created
+      - currency
+      - exp_month
+      - exp_year
+      - id
+      - last4
+      - spending_controls
+      - status
+      - type
+      title: Card
       type: object
-  requestBodies:
-    Pet:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
-          schema:
-            $ref: '#/components/schemas/Pet'
-      description: Pet object that needs to be added to the store
-    UserArray:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-      description: List of user object
+      
+    cardholder:
+      description: An Issuing `Cardholder` object represents an individual or business entity who is issued cards.
+      properties:
+        billing:
+          "$ref": "#/components/schemas/address"
+        company_tax_id:
+          description: Tax ID of the cardholding company - if applicable
+          nullable: true
+        created:
+          description: Time at which the object was created. Measured in seconds since the Unix epoch.
+          format: unix-time
+          type: integer
+        email:
+          description: The cardholder's email address.
+          maxLength: 5000
+          nullable: true
+          type: string
+          format: email
+        id:
+          description: Unique identifier for the object.
+          maxLength: 5000
+          type: string
+        individual:
+          anyOf:
+          - "$ref": "#/components/schemas/individual"
+          description: Additional information about an `individual` cardholder.
+          nullable: true
+        name:
+          description: The cardholder's name. This will be printed on cards issued to them.
+          maxLength: 24
+          type: string
+          pattern: "[a-z\\'\\`\\-\\~\\.\\ ]{1,24}"
+        phone_number:
+          description: The cardholder's phone number in E.164 format (+[country code] [number])
+          maxLength: 16
+          nullable: true
+          type: string
+          pattern: "^\\+?[1-9]\\d{1,14}$"
+        spending_controls:
+          anyOf:
+          - "$ref": "#/components/schemas/auth_controls"
+          description: Rules that control spending across this cardholder's card.
+          nullable: true
+        status:
+          description: Specifies whether to permit authorizations on this cardholder's cards.
+          enum:
+          - active
+          - blocked
+          - inactive
+          type: string
+        type:
+          description: One of `individual` or `company`.
+          enum:
+          - company
+          - individual
+          type: string
+      required:
+      - billing
+      - created
+      - id
+      - name
+      - requirements
+      - status
+      - type
+      title: Cardholder
+      type: object
+
+    address:
+      description: A physical address for a person or company
+      type: object
+      title: Address
+      properties:
+        city:
+          description: City, district, suburb, town, or village.
+          maxLength: 5000
+          type: string
+        country:
+          description: Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), in lowercase
+          maxLength: 2
+          minLength: 2
+          type: string
+          pattern: "[a-z]{2}"
+        line1:
+          description: Address line 1 (e.g., street, PO Box, or company name).
+          maxLength: 5000
+          type: string
+        line2:
+          description: Address line 2 (e.g., apartment, suite, unit, or building).
+          maxLength: 5000
+          nullable: true
+          type: string
+        postal_code:
+          description: ZIP or postal code.
+          maxLength: 5000
+          type: string
+        state:
+          description: State, county, province, or region.
+          maxLength: 5000
+          type: string
+      required:
+        - line1
+        - city
+        - postal_code
+        - state
+        - country
+    
+    auth_controls:
+      type: object
+      title: Authorisation controls
+      properties:
+        allowed_categories:
+          description: Array of strings containing merchant category codes. If specified, only transactions from merchants with these category codes will be ACCEPTED
+          $ref: '#/components/schemas/merchant_categories'
+        blocked_categories:
+          description: Array of strings containing merchant category codes. If specified, any transactions from merchants with these category codes will be BLOCKED
+          $ref: '#/components/schemas/merchant_categories'
+        spending_limits:
+          description: Limit spending with amount-based rules that apply across this cardholder's card.
+          items:
+            "$ref": "#/components/schemas/spending_limit"
+          nullable: true
+          type: array
+        spending_limits_currency:
+          description: Currency of the amounts within `spending_limits`. Set using the two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), in lowercase
+          maxLength: 2
+          minLength: 2
+          type: string
+          pattern: "[a-z]{2}"
+    
+    individual:
+      type: object
+      title: Individial
+      description: 'An individual who a card may be associated with'
+      properties:
+        dob:
+          anyOf:
+          - "$ref": "#/components/schemas/dob"
+          description: The date of birth of this cardholder.
+          nullable: true
+        first_name:
+          description: The first name of this cardholder.
+          maxLength: 5000
+          type: string
+        last_name:
+          description: The last name of this cardholder.
+          maxLength: 5000
+          type: string
+        documentId:
+          type: string
+          description: Government-issued ID document for this cardholder.
+          nullable: true
+        documentType:
+          type: string
+          enum:
+          - passport
+          - driving_license
+      required:
+      - first_name
+      - last_name
+  
+    dob:
+      description: 'A date of birth'
+      properties:
+        day:
+          description: The day of birth, between 1 and 31.
+          type: integer
+          minimum: 1
+          maximum: 31
+        month:
+          description: The month of birth, between 1 and 12.
+          minimum: 1
+          maximum: 12
+          type: integer
+        year:
+          description: The four-digit year of birth.
+          minimum: 1900
+          maximum: 3022
+          type: integer
+      title: DOB
+      type: object
+
+    spending_limit:
+      properties:
+        amount:
+          description: Maximum amount allowed to spend per interval. The currency for the spending limit is set at the card level.
+          type: integer
+          minimum: 0
+        categories:
+          $ref: '#/components/schemas/merchant_categories'
+          nullable: true
+          type: array
+        interval:
+          description: Interval (or event) to which the amount applies.
+          enum:
+          - all_time
+          - daily
+          - monthly
+          - per_transaction
+          - weekly
+          - yearly
+          type: string
+      required:
+      - amount
+      - interval
+      title: SpendingLimit
+      type: object
