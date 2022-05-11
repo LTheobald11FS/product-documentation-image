@@ -470,6 +470,9 @@ components:
           description: The brand of the card.
           maxLength: 5000
           type: string
+          enum:
+          - mastercard
+          - visa
         cancellation_reason:
           description: The reason why the card was canceled.
           enum:
@@ -483,41 +486,51 @@ components:
           description: Time at which the object was created. Measured in seconds since the Unix epoch.
           format: unix-time
           type: integer
+          example: 1652261833
         currency:
           description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
           type: string
           pattern: "[a-z][a-z][a-z]"
+          example: "CAD"
         cvc:
           description: The card's CVC. For security reasons, this is only populated when retrieving details of virtual cards
           maxLength: 3
           type: string
+          example: "987"
         exp_month:
           description: The expiration month of the card.
           type: integer
           minimum: 1
           maximum: 12
+          example: 8
         exp_year:
           description: The expiration year of the card.
           type: integer
           minimum: 2022
           maximum: 3022
+          example: 2022
         id:
           description: Unique identifier for the object.
           maxLength: 5000
           type: string
+          example: "7d4f7fff-84ba-4179-b3ca-7f2402c67864"
         last4:
           description: The last 4 digits of the card number.
           maxLength: 4
           type: string
+          example: "3456"
         number:
           description: The full unredacted card number. For security reasons, this is only retrieved when fetching virtual card details
           maxLength: 50
           type: string
+          example: "4444333322221111"
         replaced_by:
           type: object
           anyOf:
           - maxLength: 5000
             type: string
+            description: An ID of a card
+            example: "7d4f7fff-84ba-4179-b3ca-7f2402c67864"
           - "$ref": "#/components/schemas/card"
           description: The latest card that replaces this card, if any.
           nullable: true
@@ -525,12 +538,11 @@ components:
           anyOf:
           - maxLength: 5000
             type: string
+            example: "7d4f7fff-84ba-4179-b3ca-7f2402c67864"
+            description: An ID of a card
           - "$ref": "#/components/schemas/card"
           description: The card this card replaces, if any.
           nullable: true
-          x-expansionResources:
-            oneOf:
-            - "$ref": "#/components/schemas/card"
         replacement_reason:
           description: The reason why the previous card needed to be replaced.
           enum:
@@ -582,37 +594,44 @@ components:
           "$ref": "#/components/schemas/address"
         company_tax_id:
           description: Tax ID of the cardholding company - if applicable
+          type: string
+          example: "13410987213"
           nullable: true
         created:
           description: Time at which the object was created. Measured in seconds since the Unix epoch.
           format: unix-time
           type: integer
+          example: 1652261833
         email:
           description: The cardholder's email address.
           maxLength: 5000
           nullable: true
           type: string
           format: email
+          example: "Joanna.Bloggs@11fs.com"
         id:
           description: Unique identifier for the object.
           maxLength: 5000
           type: string
+          example: "b7c11d5e-0b6b-4f8a-831e-83b19680adce"
         individual:
           anyOf:
           - "$ref": "#/components/schemas/individual"
           description: Additional information about an `individual` cardholder.
           nullable: true
         name:
-          description: The cardholder's name. This will be printed on cards issued to them.
+          description: The cardholder's name, in uppercase. This will be printed on cards issued to them.
           maxLength: 24
           type: string
-          pattern: "[a-z\\'\\`\\-\\~\\.\\ ]{1,24}"
+          pattern: "[A-Z\\'\\`\\-\\~\\.\\ ]{1,24}"
+          example: "JOANNA BLOGGS"
         phone_number:
           description: The cardholder's phone number in E.164 format (+[country code] [number])
           maxLength: 16
           nullable: true
           type: string
           pattern: "^\\+?[1-9]\\d{1,14}$"
+          example: "+441223556347"
         spending_controls:
           anyOf:
           - "$ref": "#/components/schemas/auth_controls"
@@ -651,29 +670,35 @@ components:
           description: City, district, suburb, town, or village.
           maxLength: 5000
           type: string
+          example: "Laval"
         country:
           description: Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), in lowercase
           maxLength: 2
           minLength: 2
           type: string
           pattern: "[a-z]{2}"
+          example: "CA"
         line1:
           description: Address line 1 (e.g., street, PO Box, or company name).
           maxLength: 5000
           type: string
+          example: "628 Pitfield Blvd"
         line2:
           description: Address line 2 (e.g., apartment, suite, unit, or building).
           maxLength: 5000
           nullable: true
           type: string
+          example: "Apartment 7b"
         postal_code:
           description: ZIP or postal code.
           maxLength: 5000
           type: string
+          example: "H7A 4B7"
         state:
           description: State, county, province, or region.
           maxLength: 5000
           type: string
+          example: "Quebec"
       required:
         - line1
         - city
@@ -703,11 +728,12 @@ components:
           minLength: 2
           type: string
           pattern: "[a-z]{2}"
+          example: "CAD"
     
     individual:
       type: object
       title: Individial
-      description: 'An individual who a card may be associated with'
+      description: "An individual who a card may be associated with"
       properties:
         dob:
           anyOf:
@@ -718,14 +744,17 @@ components:
           description: The first name of this cardholder.
           maxLength: 5000
           type: string
+          example: "Joanna"
         last_name:
           description: The last name of this cardholder.
           maxLength: 5000
           type: string
+          example: "Bloggs"
         documentId:
           type: string
           description: Government-issued ID document for this cardholder.
           nullable: true
+          example: "745671239871238679"
         documentType:
           type: string
           enum:
@@ -743,25 +772,29 @@ components:
           type: integer
           minimum: 1
           maximum: 31
+          example: 11
         month:
           description: The month of birth, between 1 and 12.
           minimum: 1
           maximum: 12
           type: integer
+          example: 12
         year:
           description: The four-digit year of birth.
           minimum: 1900
           maximum: 3022
           type: integer
+          example: 1978
       title: DOB
       type: object
 
     spending_limit:
       properties:
         amount:
-          description: Maximum amount allowed to spend per interval. The currency for the spending limit is set at the card level.
+          description: Maximum amount allowed to spend per interval. The currency for the spending limit is set at the card level. Set in major currency units
           type: integer
           minimum: 0
+          example: 250
         categories:
           $ref: '#/components/schemas/merchant_categories'
           nullable: true
