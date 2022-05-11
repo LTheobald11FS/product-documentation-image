@@ -2,15 +2,92 @@ openapi: 3.0.2
 servers:
   - url: http://127.0.0.1:4010/
 info:
-  description: An example card management API for BNC    
+  description: An example card API for BNC    
   version: 1.0.0
-  title: BNC Card Management API
+  title: BNC Card API
   contact:
     email: lee.theobald@11fs.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 paths:
+  /cardprogramme:
+    post:
+      summary: Creates a new card programme
+      description: Creates a new card programme
+      operationId: createCardProgramme
+      responses:
+        '200':
+          description: Card programm created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+      requestBody:
+        description: Create a new card programme 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card'
+  /cardprogramme/{cardProgrammeId}:
+    get:
+      summary: Retrieve the details of a card programme 
+      description: Retrieve the details of a card programme 
+      operationId: retrieveCardProgramme
+      parameters:
+        - name: cardProgrammeId
+          in: path
+          required: true
+          description: "The ID of the card programme you wish to retrieve"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card programme details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+      requestBody:
+        description: Card programme details for the requested ID
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card'
+    delete:
+      summary: Cancel the card programme with the specified ID
+      description: Cancel the card programme with the specific ID
+      operationId: cancelCardProgramme
+      parameters:
+        - name: cardProgrammeId
+          in: path
+          required: true
+          description: "The ID of the card programme you wish to retrieve"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card programme details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
   /cards:
     post:
       summary: Creates a new card for a customer
@@ -25,6 +102,8 @@ paths:
                 $ref: '#/components/schemas/card'
         '405':
           description: Could not validate input
+        '500':
+          description: A server-side error occurred 
       requestBody:
         description: Create a new card for a customer
         required: true
@@ -32,6 +111,61 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/card'
+  /cards/{cardId}:
+    get:
+      summary: Retrieve the details of a card
+      description: Retrieve the details of a card
+      operationId: retrieveCard
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to retrieve"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+      requestBody:
+        description: Card details for the requested ID
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/card'
+    delete:
+      summary: Cancel the card with the specified ID
+      description: Cancel the card with the specific ID
+      operationId: cancelCard
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to retrieve"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card details retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+
 components:
   schemas:
     merchant_categories:
