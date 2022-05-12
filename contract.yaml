@@ -165,6 +165,133 @@ paths:
           description: Could not validate input
         '500':
           description: A server-side error occurred 
+  /cards/{cardId}/freeze:
+    post:
+      summary: Freeze the card with the specified ID
+      description: Freeze the card with the specified ID
+      operationId: freezeCard
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to freeze"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card frozen successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: boolean
+                    example: true
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+  
+  /cards/{cardId}/thaw:
+    post:
+      summary: Thaw (Unfreeze) the card with the specified ID
+      description: Thaw (Unfreeze) the card with the specified ID
+      operationId: thawCard
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to freeze"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Card frozen successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: boolean
+                    example: true
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred 
+  /cards/{cardId}/pin:
+    get:
+      summary: Retrieve the PIN of the card with the specified ID
+      description: Retrieve the PIN of the card with the specified ID
+      operationId: retrievePin
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to freeze"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pin retrieved for the specified card
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pin:
+                    type: integer
+                    description: The card PIN in plain text
+                    minLength: 4
+                    maxLength: 4
+                    example: 3123
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred
+    post: 
+      summary: Update the PIN of the card with the specified ID
+      description: Update the PIN of the card with the specified ID
+      operationId: updatePin
+      parameters:
+        - name: cardId
+          in: path
+          required: true
+          description: "The ID of the card you wish to retrieve the pin of"
+          example: "ABC123"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pin retrieved for the specified card
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: An indication of the result
+                    example: "OK"
+        '405':
+          description: Could not validate input
+        '500':
+          description: A server-side error occurred
+      requestBody:
+        description: Create a new card programme 
+        required: true
+        content:
+          application/json:
+            schema:
+                type: integer
+                description: The card PIN in plain text
+                minLength: 4
+                maxLength: 4
+                example: 3123
 
 components:
   schemas:
