@@ -295,6 +295,115 @@ paths:
 
 components:
   schemas:
+    card_programme:
+      description: A card programme. Sets up the profile of a card that can then be issued to customers
+      type: object
+      title: CardProgramme
+      properties:
+        name:
+          type: string
+          description: Name of the card programme
+          minLength: 1
+          maxLength: 500
+          example: "Titanium Card"
+      required: 
+      - name
+        
+      
+    interest:
+      type: object
+      description: An amount that can either be positvely of negatively applied to an account.
+      title: Interest
+      properties:
+        amount:
+          description: The amount of interest to be charged as a percentage. Can either be positive (interest earnt) or negative (interest charged)
+          type: number
+          format: double
+          minimum: -100.00
+          maximum: 100.00
+          example: -14.99
+        interval:
+          description: Interval (or event) to which the amount applies.
+          enum:
+          - daily
+          - monthly
+          - per_transaction
+          - weekly
+          - yearly
+          type: string
+      required:
+      - amount
+      - interval
+      
+    fee:
+      type: object
+      title: Fee
+      description: A fee that is charged on a regular interval
+      properties:
+        amount:
+          description: The amount of the fee associated with this card
+          type: integer
+          minimum: 1
+          example: 250
+        currency:
+          description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+          type: string
+          pattern: "[a-z]{3}"
+          example: "CAD"
+        interval:
+          description: Interval (or event) to which the amount applies.
+          enum:
+          - daily
+          - monthly
+          - per_transaction
+          - weekly
+          - yearly
+          type: string
+      required:
+      - amount
+      - interval
+      - currency
+      
+    reward:
+      description: A reward associated with a card that is earnt on a regular interval
+      properties:
+        amount:
+          description: Amount of reward 'points' the cardholder use receive
+          type: integer
+          minimum: 1
+          example: 250
+        reward_scheme:
+          $ref: '#/components/schemas/reward_schemes'
+        label:
+          description: The label for the points being received
+          type: string
+          example: 'Cashback'
+        interval:
+          description: Interval (or event) to which the amount applies.
+          enum:
+          - daily
+          - monthly
+          - per_transaction
+          - weekly
+          - yearly
+          type: string
+      required:
+      - amount
+      - reqard_scheme
+      - label
+      title: Reward
+      type: object
+      
+    reward_schemes:
+      type: array
+      description: Array of string containing various reward schemes a card can be assigned to
+      items:
+        type: string
+        enum:
+        - cashback
+        - aeroplan
+        - avios
+      
     merchant_categories:
       type: array
       description: Array of strings containing merchant category codes
@@ -617,7 +726,7 @@ components:
         currency:
           description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
           type: string
-          pattern: "[a-z][a-z][a-z]"
+          pattern: "[a-z]{3}"
           example: "CAD"
         cvc:
           description: The card's CVC. For security reasons, this is only populated when retrieving details of virtual cards
@@ -850,11 +959,9 @@ components:
           nullable: true
           type: array
         spending_limits_currency:
-          description: Currency of the amounts within `spending_limits`. Set using the two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)), in lowercase
-          maxLength: 2
-          minLength: 2
+          description: Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
           type: string
-          pattern: "[a-z]{2}"
+          pattern: "[a-z]{3}"
           example: "CAD"
     
     individual:
