@@ -325,7 +325,7 @@ components:
           description: A list of fees that are applied to the card programme
           title: Fees
           items:
-            $ref: "#/components/schemas/reward"
+            $ref: "#/components/schemas/fee"
         interest:
           type: array
           description: A list of interest rates that are applied to the card programm
@@ -334,6 +334,7 @@ components:
             $ref: "#/components/schemas/interest"
       required: 
       - name
+      - scheme
         
       
     interest:
@@ -728,13 +729,11 @@ components:
     card:
       description: You can create physical or virtual cards that are issued to cardholders.
       properties:
-        brand:
-          description: The brand of the card.
-          maxLength: 5000
+        card_programme:
+          description: The ID of the card programme this card belongs too
+          maxLength: 500
           type: string
-          enum:
-          - mastercard
-          - visa
+          example: 312957f9-87da-4721-8ed7-7ff5ee66f3d5
         cancellation_reason:
           description: The reason why the card was canceled.
           enum:
