@@ -22,7 +22,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/card'
+                $ref: '#/components/schemas/card_programme'
         '405':
           description: Could not validate input
         '500':
@@ -33,7 +33,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/card'
+              $ref: '#/components/schemas/card_programme'
   /cardprogramme/{cardProgrammeId}:
     get:
       summary: Retrieve the details of a card programme 
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/card'
+                $ref: '#/components/schemas/card_programme'
         '405':
           description: Could not validate input
         '500':
@@ -64,7 +64,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/card'
+              $ref: '#/components/schemas/card_programme'
     delete:
       summary: Cancel the card programme with the specified ID
       description: Cancel the card programme with the specific ID
@@ -83,7 +83,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/card'
+                $ref: '#/components/schemas/card_programme'
         '405':
           description: Could not validate input
         '500':
@@ -306,6 +306,32 @@ components:
           minLength: 1
           maxLength: 500
           example: "Titanium Card"
+        scheme:
+          type: array
+          description: The card scheme used for the card
+          items:
+            type: string
+            enum:
+            - visa
+            - mastercard
+        rewards:
+          type: array
+          description: A list of rates that are applied to the card programme
+          title: Rewards
+          items:
+            $ref: "#/components/schemas/reward"
+        fees:
+          type: array
+          description: A list of fees that are applied to the card programme
+          title: Fees
+          items:
+            $ref: "#/components/schemas/reward"
+        interest:
+          type: array
+          description: A list of interest rates that are applied to the card programm
+          title: Interest
+          items:
+            $ref: "#/components/schemas/interest"
       required: 
       - name
         
