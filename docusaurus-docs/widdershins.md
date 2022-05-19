@@ -22,7 +22,7 @@ headingLevel: 2
 
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="bnc-card-api">BNC Card API v1.0.0</h1>
+<h1 id="bnc-card-api">BNC Card API v1.0.0</h1>gi
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
@@ -2051,7 +2051,6 @@ continued
 |type|virtual|
 
 <h2 id="tocS_cardholder">cardholder</h2>
-<!-- backwards compatibility -->
 <a id="schemacardholder"></a>
 <a id="schema_cardholder"></a>
 <a id="tocScardholder"></a>
