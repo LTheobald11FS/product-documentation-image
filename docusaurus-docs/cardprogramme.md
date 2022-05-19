@@ -1,6 +1,7 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 id: card-programme
+title: Card Programmes
 ---
 
 # Card Programmes
@@ -8,7 +9,7 @@ id: card-programme
 A card programme is a predefined card product that can be issued to customers. Each card programme has a number of key characteristics including:
 
 Fees
-: A fixed amount charge that is made to the card balance on a regular occurence
+: A fixed a mount charge that is made to the card balance on a regular occurence
 
 Interest
 : A variable amount that is either credited or debited to the card, based on the card balance
