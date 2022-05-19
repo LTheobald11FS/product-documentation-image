@@ -4,33 +4,40 @@ slug: /
 id: intro
 ---
 
-<div class="hero shadow--lw">
-  <div class="container">
-    <h1 class="hero__title">Card Management</h1>
-    <p class="hero__subtitle">Documentation for the BNC Card APIs</p>
-    <div>
-      <button class="button button--secondary button--outline button--lg">
-        Get Started
-      </button>
-    </div>
-  </div>
-</div>
-
-# _
+# BNC Card API
+<p class="hero-p">Welcome to the BNC Card documentation.</p>
 
 Here you will find guides & API references to help you create & issue BNC branded cards through our domain APIs.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    Alice->>John: Hello John, how are you?
-    loop Healthcheck
-        John->>John: Think about how my day has been
-    end
-    Note right of John: Being positive
-    John-->>Alice: Great!
-    John->>Bob: How about you?
-    Bob-->>John: Jolly good!
-```
 
-## Download & try out our API
+
+<div class="container">
+  <div class="card-demo row">
+    <div class="card col">
+      <div class="card__header">
+        <h3>Getting Started</h3>
+      </div>
+      <div class="card__body">
+        <p>
+          Learn about the Cards API and get started issuing cards within a few minutes.
+        </p>
+      </div>
+      <div class="card__footer">
+        <button class="button button--secondary button--block">Get Started</button>
+      </div>
+    </div>
+    <div class="card col">
+      <div class="card__header">
+        <h3>API Reference</h3>
+      </div>
+      <div class="card__body">
+        <p>
+          Jump straight into our API reference where you can try requests directly from the documentation
+        </p>
+      </div>
+      <div class="card__footer">
+        <button class="button button--secondary button--block">View the reference</button>
+      </div>
+    </div>
+  </div>
+</div>

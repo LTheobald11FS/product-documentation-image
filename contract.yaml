@@ -307,13 +307,11 @@ components:
           maxLength: 500
           example: "Titanium Card"
         scheme:
-          type: array
+          type: string
           description: The card scheme used for the card
-          items:
-            type: string
-            enum:
-            - visa
-            - mastercard
+          enum:
+          - visa
+          - mastercard
         rewards:
           type: array
           description: A list of rates that are applied to the card programme
