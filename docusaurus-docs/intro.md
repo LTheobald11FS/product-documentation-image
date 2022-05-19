@@ -2,7 +2,7 @@
 sidebar_position: 1
 slug: /
 id: intro
-title: Home
+sidebar_label: Home
 ---
 
 # BNC Card API
