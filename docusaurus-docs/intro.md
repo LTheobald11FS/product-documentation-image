@@ -7,9 +7,10 @@ sidebar_label: Home
 
 # BNC Card API
 <p class="hero-p">Welcome to the BNC Card documentation.</p>
+
 Here you will find guides & API references to help you create & issue BNC branded cards through our experience APIs.
 
-got <div class="container">
+<div class="container">
   <div class="card-demo row">
     <div class="card col">
       <div class="card__header">
