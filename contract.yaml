@@ -378,6 +378,7 @@ components:
         interval:
           description: Interval (or event) to which the amount applies.
           enum:
+          - one_time
           - daily
           - monthly
           - per_transaction

@@ -19,12 +19,41 @@ Rewards
 
 ## Creating A Card Programme
 
-Before you can issue cards, you need to decide what your card programme should offer to customers. The below example shows creating a card with:
+Before you can issue cards, you need to decide what your card programme should offer to customers. The below example shows creating card which:
 
-* A 20% interest rate, charged monthly
-* A $100 sign up fee
-* 2 Aeroplan points with every purchase
+* Is a Visa credit card
+* Has a 20% interest rate, charged monthly
+* Has a $100 sign up fee
+* Gives 2 Aeroplan points with every purchase
 
 ```shell
-curl http://www.google.com
+curl -X POST http://127.0.0.1:4010/cardprogramme \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json'
+  -d '{
+    "name": "Titanium Card",
+    "scheme": "visa",
+    "type": "credit",
+    "rewards": [
+      {
+        "amount": 2,
+        "reward_scheme": ["aeroplan"],
+        "label": "Aeroplan",
+        "interval": "per_transaction"
+      }
+    ],
+    "fees": [
+      {
+        "amount": 100,
+        "currency": "CAD",
+        "interval": "one_time"
+      }
+    ],
+    "interest": [
+      {
+        "amount": -20,
+        "interval": "daily"
+      }
+    ]
+  }'
 ```
