@@ -58,13 +58,6 @@ paths:
           description: Could not validate input
         '500':
           description: A server-side error occurred 
-      requestBody:
-        description: Card programme details for the requested ID
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/card_programme'
     delete:
       summary: Cancel the card programme with the specified ID
       description: Cancel the card programme with the specific ID
@@ -135,13 +128,6 @@ paths:
           description: Could not validate input
         '500':
           description: A server-side error occurred 
-      requestBody:
-        description: Card details for the requested ID
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/card'
     delete:
       summary: Cancel the card with the specified ID
       description: Cancel the card with the specific ID
