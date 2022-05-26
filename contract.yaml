@@ -1,6 +1,6 @@
 openapi: 3.0.2
 servers:
-  - url: http://127.0.0.1:4010/
+  - url: http://ec2-13-40-116-35.eu-west-2.compute.amazonaws.com:4010/
 info:
   description: An example card API for BNC    
   version: 1.0.0
